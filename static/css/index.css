@@ -1,0 +1,21 @@
+.loginPage_contents {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.loginPage_contents_title {
+  margin-top: 12vh;
+}
+
+.loginPage_contents_btn {
+  display: block;
+  max-width: 400px;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 30px;
+  background: #fd5068;
+  color: #fff;
+}

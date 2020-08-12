@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<script src="{% static 'user.js' %}"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class='signinPage'>
+    <div class='container'>
+        <div class='userIcon'>
+            <i class="fas fa-user fa-3x"></i>
+        </div>
+        <h2 class="title">ログイン</h2>
+        <form action="" method="POST">
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                {{ field }}
+                {{ field.errors }}
+                <hr>
+            {% endfor %}
+            <div class="form-group text-center">
+                {% buttons %}
+                <button type="submit" class="loginBtn">
+                    ログインする
+                </button>
+                <input type="hidden" name="next" value="{{ next }}" />
+                {% endbuttons %}
+                <div class="linkToLogin"><a href="/users/regist/">アカウント作成はこちら</a></div>
+                {% csrf_token %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

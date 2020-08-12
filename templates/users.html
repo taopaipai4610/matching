@@ -1,0 +1,120 @@
+{% load static %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'css/jTinder.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/users.css' %}">
+
+<script src="{% static 'js/jquery.jTinder.js' %}"></script>
+<script src="{% static 'js/jquery.transform2d.js' %}"></script>
+<div class="topPage">
+
+        <nav class="nav">
+          <ul>
+            <li class="personIcon">
+                <a href="/users/profile/{{ form.currentuser_id }}">
+                    <i class="fas fa-2x fa-user"></i>
+                </a>
+            </li>
+            <li class="appIcon">
+                <a href="/users">
+                    <img src="{% static 'images/techpit-march-icon.png' %}" alt="Techpit march icon">
+                </a>
+            </li>
+            <li class="messageIcon">
+                <a href="/matching">
+                    <i class="fas fa-2x fa-comments"></i>
+                </a>
+            </li>
+          </ul>
+        </nav>
+        <div id="tinderslide">
+          <ul>
+
+                {% for user in form.exclude_userlist %}
+                <li data-user_id="{{ user.id }}">
+                  <div class="userName">{{ user.name }}</div>
+                  <img src="/media/{{ user.image.origin }}">
+                  <div class="like"></div>
+                  <div class="dislike"></div>
+                </li>
+               {% endfor %}
+          </ul>
+          <div class="noUser">近くにお相手がいません。</div>
+        </div>
+        <div class="actions" id="actionBtnArea">
+            {% csrf_token %}
+            <a href="#" class="dislike"><i class="fas fa-times fa-2x"></i></a>
+            <a href="#" class="like"><i class="fas fa-heart fa-2x"></i></a>
+        </div>
+      </div>
+      <script>
+        // スワイプするユーザー数の定数を定義
+        const usersNum = {{ form.list_length }}
+        let currentUserIndex = 0;
+        var postReaction = function (user_id, reaction) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                }
+            });
+            $.ajax({
+                type: "POST",
+                headers: {"X-CSRFToken": getCookie("csrftoken")},
+                url: "/reactions/",
+                data: {
+                    user_id: user_id,
+                    reaction: reaction,
+                },
+                success: function(j_data){
+                    console.log("success")
+                }
+            });
+        }
+        $("#tinderslide").jTinder({
+            onDislike: function (item) {
+                currentUserIndex++;
+                checkUserNum();
+                var user_id = item[0].dataset.user_id
+                postReaction(user_id, 'dislike')
+            },
+            onLike: function (item) {
+                currentUserIndex++;
+                checkUserNum();
+                var user_id = item[0].dataset.user_id
+                postReaction(user_id, 'like')
+            },
+            animationRevertSpeed: 200,
+            animationSpeed: 400,
+            threshold: 1,
+            likeSelector: '.like',
+            dislikeSelector: '.dislike'
+        });
+        $('.actions .like, .actions .dislike').click(function(e){
+            e.preventDefault();
+            $("#tinderslide").jTinder($(this).attr('class'));
+        });
+        function checkUserNum() {
+            // スワイプするユーザー数とスワイプした回数が同じになればaddClassする
+            if (currentUserIndex === usersNum){
+                $(".noUser").addClass("is-active");
+                $("#actionBtnArea").addClass("is-none")
+                return;
+            }
+        }
+        function getCookie(c_name) {
+            if(document.cookie.length > 0) {
+                c_start = document.cookie.indexOf(c_name + "=");
+                if(c_start != -1) {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(";", c_start);
+                    if(c_end == -1) c_end = document.cookie.length;
+                    return unescape(document.cookie.substring(c_start,c_end));
+                }
+            }
+            return "";
+        }
+      </script>

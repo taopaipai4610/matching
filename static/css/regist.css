@@ -1,0 +1,102 @@
+body {
+  overflow: visible;
+}
+
+.notice .alert {
+  display: none;
+}
+
+.sinupPage .fas {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+.sinupPage .header {
+  padding: 20px;
+  text-align: center;
+  background: #fd5068;
+  color: #fff;
+}
+
+.sinupPage .userProfileImg {
+  position: relative;
+  margin: 0 auto 10px auto;
+  width: 100px;
+  height: 100px;
+  background: #f85a6f;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.sinupPage .userProfileImg_description:hover  {
+  opacity: 1;
+}
+
+.userProfileImg_description {
+  transition: opacity .5s;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 5, .5);
+  color: #fff;
+}
+
+.sinupPage .userProfileImg .fa-camera {
+  color: #fff;
+}
+
+.sinupPage .userImgPreview {
+  margin: 0 auto;
+  display: none;
+  text-align: center;
+}
+
+.sinupPage .is-active {
+  display: block;
+}
+
+.sinupPage #id_image {
+  display: none;
+}
+
+.userImgPreview_content {
+  max-width: 100px;
+  margin: 10px;
+  padding: 10px;
+  border: solid thin lightgray;
+  border-radius: 5px;
+}
+
+.userImgPreview_text {
+font-size: 12px;
+}
+
+.sinupPage_text {
+  font-size: 11px;
+}
+
+.sinupPage .submitBtn {
+  background: #fd5068;
+  color: #fff;
+  width: 200px;
+  padding: 10px;
+  border-radius: 90px;
+  transition: opacity .5s;
+}
+
+.sinupPage .submitBtn:hover {
+  opacity: .6;
+}

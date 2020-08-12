@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/matching.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<script src="{% static 'js/user.js' %}"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="matchingPage">
+<header class="header">
+    <i class="fas fa-comments fa-3x"></i>
+    <div class="header_logo">
+        <a href="/users">
+            <img src="{% static 'images/techpit-march-icon.png' %}" alt="Techpit march icon">
+        </a>
+    </div>
+</header>
+<div class="container">
+    <div class="mt-5">
+        <div class="matchingNum">
+            {{ form.count }}人とマッチングしています
+        </div>
+        <h2 class="pageTitle">マッチングした人一覧</h2>
+        <div class="matchingList">
+            {% for matching in form.reaction_users %}
+            <div class="matchingPerson">
+                <div class="matchingPerson_img">
+                    <img src="/media/{{ matching.to_user.image.origin }}">
+                </div>
+                <div class="matchingPerson_name">
+                    {{ matching.to_user.name }}
+                </div>
+                <form action="/chat/create/{{ matching.to_user.id }}" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token">
+                    {% csrf_token %}
+                    <input type="submit" name="commit" value="チャットを開く" class="chatForm_btn" data-disable-with="チャットを開く" />
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

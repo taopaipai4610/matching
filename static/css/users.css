@@ -1,0 +1,40 @@
+.topPage .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    max-width: 610px;
+    margin: 0 auto;
+ }
+ 
+ .topPage .nav > ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+ }
+ 
+ .topPage .nav > ul > li {
+    list-style: none;
+ }
+
+ .topPage .nav > ul > li.personIcon > i {
+    color:#dccbcb;
+ }
+ 
+ .topPage .nav > ul > li.appIcon > a {
+    width: 40px;
+    display: inline-block;
+ }
+ .topPage .nav > ul > li.appIcon > a > img {
+    width: 100%;
+ }
+ .topPage .nav > ul > li.messageIcon > i {
+    color: #dccbcb;
+ }
+
+ .topPage #tinderslide > ul > li > img {
+    width: 267px;
+    height: 400px;
+ }

@@ -1,0 +1,114 @@
+[
+  {
+      "model": "auth.user",
+      "pk": 1000,
+      "fields": {
+          "email": "user1@example.com",
+          "password": "aaaaaaaa",
+          "username": "user1"
+      }
+  },
+  {
+      "model": "match.image",
+      "pk": 1000,
+      "fields": {
+          "origin": "photos/dummy/1.jpeg"
+      }
+ },
+ {
+      "model": "match.userinfo",
+      "pk": 1000,
+      "fields": {
+          "name": "オリバー",
+          "image_id": 1000,
+          "self_introduction": "オリバーです",
+          "sex": "man",
+          "created_at": "2018-11-11"
+      }
+ },
+
+  {
+      "model": "auth.user",
+      "pk": 1001,
+      "fields": {
+          "email": "user2@example.com",
+          "password": "aaaaaaaa",
+          "username": "user2"
+      }
+  },
+  {
+      "model": "match.image",
+      "pk": 1001,
+      "fields": {
+          "origin": "photos/dummy/2.jpeg"
+      }
+ },
+ {
+      "model": "match.userinfo",
+      "pk": 1001,
+      "fields": {
+          "name": "ハリー",
+          "image_id": 1001,
+          "self_introduction": "ハリーです",
+          "sex": "man",
+          "created_at": "2018-11-11"
+      }
+ },
+
+
+  {
+      "model": "auth.user",
+      "pk": 1002,
+      "fields": {
+          "email": "user3@example.com",
+          "password": "aaaaaaaa",
+          "username": "user3"
+      }
+  },
+  {
+      "model": "match.image",
+      "pk": 1002,
+      "fields": {
+          "origin": "photos/dummy/3.jpeg"
+      }
+ },
+ {
+      "model": "match.userinfo",
+      "pk": 1002,
+      "fields": {
+          "name": "オリヴィア",
+          "image_id": 1002,
+          "self_introduction": "オリヴィアです",
+          "sex": "woman",
+          "created_at": "2018-11-11"
+      }
+ },
+
+  {
+      "model": "auth.user",
+      "pk": 1003,
+      "fields": {
+          "email": "user4@example.com",
+          "password": "aaaaaaaa",
+          "username": "user4"
+      }
+  },
+  {
+      "model": "match.image",
+      "pk": 1003,
+      "fields": {
+          "origin": "photos/dummy/4.jpeg"
+      }
+ },
+ {
+      "model": "match.userinfo",
+      "pk": 1003,
+      "fields": {
+          "name": "リリー",
+          "image_id": 1003,
+          "self_introduction": "リリーです",
+          "sex": "woman",
+          "created_at": "2018-11-11"
+      }
+ }
+]

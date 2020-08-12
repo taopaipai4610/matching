@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<script src="{% static 'user.js' %}"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class='usershowPage'>
+    <div class='container'>
+        <header class="header">
+        <p class='header_logo'>
+            <a href="/users">
+                <img src="{% static 'images/techpit-march-icon.png' %}" alt="Techpit march icon">
+            </a>
+        </p>
+        </header>
+        <div class='userInfo'>
+            <div class='userInfo_img'>
+                <img src="/media/{{ form.image.origin }}">
+            </div>
+            <div class='userInfo_name'>{{ form.info.name }}</div>
+            <div class='userInfo_selfIntroduction'>
+                {{ form.info.self_introduction }}
+            </div>
+        </div>
+        {% if iscurrent %}
+        <div class='userAction'>
+            <div class="userAction_edit userAction_common">
+                <a href="/users/{{ form.info.id }}/edit"><i class="fas fa-edit fa-2x"></i></a>
+                <span>情報を編集</span>
+            </div>
+            <div class='userAction_logout userAction_common'>
+                <a rel="nofollow" data-method="delete" href="/"><i class="fas fa-cog fa-2x"></i></a>
+                <span>ログアウト</span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

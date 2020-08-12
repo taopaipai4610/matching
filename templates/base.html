@@ -1,0 +1,15 @@
+{% load static %}
+
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>

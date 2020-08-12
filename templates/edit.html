@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/edit.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class='userEditPage'>
+    <div class='header'>アカウント編集</div>
+    <div class='container'>
+        <form class="edit_user" id="edit_user" enctype="multipart/form-data" action="/users/{{form.info.id}}/edit/" accept-charset="UTF-8" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {% for error_message in form.error_messages %}
+                    {{ error_message }}<br>
+                {% endfor %}
+                <label for="user_名前">名前</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="user_自己紹介">自己紹介</label>
+                {{ form.self_introduction }}
+            </div>
+            <div class="form-group">
+                性別:
+                {{ form.sex }}
+            </div>
+            <div class="form-group">
+                画像:
+                {{ form.image }}
+            </div>
+            <div class="form-group">
+            <label for="user_更新するにはパスワードを入力してください">更新するにはパスワードを入力してください</label>
+                {{form.password}}
+            </div>
+            <div class="text-center">
+                {% buttons %}
+                    <input type="submit" class="btn submitBtn" value="更新" />
+                {% endbuttons %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

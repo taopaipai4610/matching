@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<script src="{% static 'js/user.js' %}"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="chatPage">
+    <header class="header">
+        <a class="linkToMatching" href="/matching/"></a>
+        <div class="chatPartner">
+        <div class="chatPartner_img">
+            <img src="/media/{{ form.roomuser.user.image.origin }}">
+        </div>
+        <div class="chatPartner_name">{{ form.roomuser.user.name }}</div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="messagesArea messages">
+        {{ form.message }}
+        </div>
+    </div>
+    <form class="messageInputForm">
+        {% csrf_token %}
+        <div class='container'>
+        <input type="text" data-behavior="room_speaker" class="messageInputForm_input" placeholder="メッセージを入力...">
+        </div>
+    </form>
+</div>
+<script>
+    var username = '{{ form.current_user_name }}';
+    var room_id = '{{ form.room_id }}';
+    var user_id = '{{ form.roomuser.user.id }}';
+
+    var chatSocket = new WebSocket(
+        'ws://' + window.location.host +
+        '/ws/chat/' + room_id + '/');
+    chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        var username = data['username'];
+        var message = data['message'];
+        $('.messages').append(generateMessage(username, message));
+
+    };
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+    $(document).on('keypress', '[data-behavior~=room_speaker]', function(event) {
+        if (event.keyCode === 13) {
+            chatSocket.send(JSON.stringify({
+                'message': event.target.value,
+                'username': username,
+                'room_id': room_id,
+                'user_id': user_id
+            }));
+            event.target.value = '';
+            return event.preventDefault();
+        }
+    });
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/chat/show/" + room_id + "/messages/",
+            success: function(response){
+                load_message_items = JSON.parse(response)
+                for(var index in load_message_items) {
+                    var name = load_message_items[index].name
+                    var message = load_message_items[index].message
+                    $('.messages').append(generateMessage(name, message));
+                }
+            }
+        });
+    });
+
+    generateMessage = function(username, message) {
+        return '<div class=\"message\">' +
+                              '<span>' + username + ':</span><div class="commonMessage"><div>' + message + '</div></div>' +
+                              '</div>';
+    };
+</script>
+{% endblock %}
